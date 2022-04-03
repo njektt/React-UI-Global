@@ -83,22 +83,4 @@ ClassMethod getRowCount(name)
     return ($I(name) - 1)
 }
 
-ClassMethod test(name) As %Status
-{
-    set $ZR = name
-    set res = {}
-    set res.data = []
-
-    set node = $Query(@$ZR)
-
-    While ((node '= "") ) {
-        #; do res.data.%Push({
-        #;     "key" : (node),
-        #;     "value" : (##class(%Library.Utility).FormatString(@node))
-        #; })
-        zwrite ##class(%Library.Utility).FormatString(@node)
-        Set node = $Query(@node)
-    }
-}
-
 }
