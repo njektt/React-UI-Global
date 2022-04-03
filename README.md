@@ -17,6 +17,8 @@ Open the terminal in this directory and run:
 $ docker-compose up -d
 ```
 
+Then open http://localhost:4000/
+
 ## Web interface
 The web interface allows you to view and create globals. In the web interface, you can generate globals with a given number of lines with random values.
 
