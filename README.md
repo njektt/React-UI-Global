@@ -22,3 +22,6 @@ The web interface allows you to view and create globals. In the web interface, y
 
 ## REST API
 Routing is used by Flask Framework to process incoming requests. When a request is received using Python Embedded, methods of the ObjectScript class are called and processed
+
+- [GET] /api/getGlobalData - Gets the elements of the given global. Parameters: name - global name, size - number of global elements (to implement loading and optimization)
+- [POST] /api/generateGlobal - Generates a global with random data. Parameters: globalname - the name of the created global, rowcount - the number of generated elements.
