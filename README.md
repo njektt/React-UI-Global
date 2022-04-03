@@ -8,7 +8,7 @@ This application provides a convenient web interface and REST API application fo
 The repo is dockerised so you can  clone/git pull the repo into any local directory
 
 ```
-$ git clone https://github.com/NjekTt/iris-python-dashboards.git
+$ git clone https://github.com/NjekTt/React-UI-Global
 ```
 
 Open the terminal in this directory and run:
