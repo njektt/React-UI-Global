@@ -41,12 +41,14 @@ export default function AddGlobalForm(props) {
 			.post(process.env.REACT_APP_API_URL + "/api/generateGlobal", {
 				globalname: "^" + formInput.globalname,
 				rowcount: parseInt(formInput.rowcount),
+				namespace: props.selectedNamespace,
 			})
 			.then((response) => {
 				console.log(response);
 				setIsLoading(false);
 				setOpen(false);
 				setFormInput({ globalname: "", rowcount: "" });
+				props.updateGlobalList();
 				props.setSelectedGlobal("^" + formInput.globalname);
 			});
 	};
@@ -54,7 +56,7 @@ export default function AddGlobalForm(props) {
 	return (
 		<div>
 			<Box>
-				<Button onClick={handleClickOpen} fullWidth variant="contained">
+				<Button onClick={handleClickOpen} sx={{ mt: 2 }} fullWidth variant="contained">
 					Create Global
 				</Button>
 				<Dialog

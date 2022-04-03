@@ -15,14 +15,14 @@ ClassMethod CreatePersentAll() As %Status
     Return sc
 }
 
-ClassMethod getGlobalList() As %Status
+ClassMethod getGlobalList(namespace) As %Status
 {
     #; ^$|nspace|GLOBAL(global_name)
     set res = {}
     set res.data = []
     SET name=""
     FOR I=1:1 {
-        SET name=$ORDER(^$GLOBAL(name))
+        SET name=$ORDER(^$|namespace|GLOBAL(name))
         do res.data.%Push({"name" : (name)})
         QUIT:name=""
         SET GLOBAL(I)=name
@@ -31,8 +31,9 @@ ClassMethod getGlobalList() As %Status
     return res.%ToJSON()
 }
 
-ClassMethod generateGlobal(name, rowCount) As %Status
+ClassMethod generateGlobal(name, rowCount, namespace) As %Status
 {
+    set $namespace = namespace
     kill @name
     set $ZR = name
     set @$ZR = rowCount
@@ -48,24 +49,29 @@ ClassMethod generateGlobal(name, rowCount) As %Status
         )
     }
 
+    set $namespace = "IRISAPP"
+
     return $$$OK
 }
 
-ClassMethod getGlobalData(name, size, direction)
+ClassMethod getGlobalData(name, size, namespace)
 {
+    set $namespace = namespace
     set $ZR = name
     set res = {}
     set res.data = []
 
-    set node = $Query(@$ZR, direction)
+    set node = $Query(@$ZR)
 
     While ((node '= "") && ($I(name) - 1 '= size)) {
         do res.data.%Push({
             "key" : (node),
             "value" : (##class(%Library.Utility).FormatString(@node))
         })
-        Set node = $Query(@node, direction)
+        Set node = $Query(@node)
     }
+
+    set $namespace = "IRISAPP"
 
     return res.%ToJSON()
 }

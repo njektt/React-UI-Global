@@ -26,6 +26,7 @@ export default function KeyValueTable() {
 	const [data, setData] = React.useState([]);
 	const [isLoading, setLoading] = React.useState(false);
 	const [pageSize, setPageSize] = React.useState(200);
+	const [selectedNamespace, setSelectedNamespace] = React.useState("");
 
 	const updateData = (start = selectedGlobal, type = "add") => {
 		setLoading(true);
@@ -39,8 +40,8 @@ export default function KeyValueTable() {
 					startGlobal +
 					"&size=" +
 					pageSize +
-					"&direction=" +
-					1
+					"&namespace=" +
+					selectedNamespace
 			)
 			.then((respose) => {
 				var res = [];
@@ -57,7 +58,12 @@ export default function KeyValueTable() {
 	return (
 		<Grid container spacing={3}>
 			<Grid item md={2.5} xs={12}>
-				<Filters selectedGlobal={selectedGlobal} handleUpdateData={updateData} />
+				<Filters
+					selectedNamespace={selectedNamespace}
+					setSelectedNamespace={setSelectedNamespace}
+					selectedGlobal={selectedGlobal}
+					handleUpdateData={updateData}
+				/>
 			</Grid>
 			<Grid item md={9.5} xs={12}>
 				<Typography sx={{ textAlign: "left", mb: 1 }} variant="h6" component="div">

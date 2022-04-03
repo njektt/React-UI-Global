@@ -13,8 +13,8 @@ classUtils = 'dc.teccod.API.utils'
 def getGlobalData():
     globalName = request.args.get('name')
     size = request.args.get('size')
-    direction = request.args.get('direction')
-    return jsonify(json.loads(iris.cls(classUtils).getGlobalData(globalName, size, direction))['data'])
+    namespace = request.args.get('namespace')
+    return jsonify(json.loads(iris.cls(classUtils).getGlobalData(globalName, size, namespace))['data'])
 
 
 @app.route('/api/setNamespace')
@@ -24,7 +24,10 @@ def setNamespace():
 
 @app.route('/api/generateGlobal',  methods=['GET', 'POST'])
 def generateGlobal():
-    iris.cls(classUtils).generateGlobal(request.get_json()['globalname'], request.get_json()['rowcount'])
+    namespace = request.get_json()['namespace']
+    rowcount = request.get_json()['rowcount']
+    globalname = request.get_json()['globalname']
+    iris.cls(classUtils).generateGlobal(globalname, rowcount, namespace)
     return {'status' : 200}
 
 
@@ -35,15 +38,9 @@ def getRowCountGlobal():
 
 
 @app.route('/api/getAllGlobalList')
-def test():
-    return jsonify(json.loads(iris.cls(classUtils).getGlobalList())['data'])
-
-
-@app.route('/api/getGlobalUsageList')
-def getGlobalList():
-    query = "SELECT * FROM %ExtentMgr.GlobalRegistry"
-    data_frame = iris.sql.exec(query).dataframe()
-    return (data_frame.to_json(orient="records"))
+def getAllGlobalList():
+    nameSpace = request.args.get('nameSpace')
+    return jsonify(json.loads(iris.cls(classUtils).getGlobalList(nameSpace))['data'])
 
 if __name__ == "__main__":
     app.run_server(host="0.0.0.0", port=8080, debug=True)
