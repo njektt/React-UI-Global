@@ -1,0 +1,19 @@
+    Do $SYSTEM.OBJ.Load("/opt/irisapp/Installer.cls", "ck")
+    Do ##class(App.Installer).setup()
+    
+    zn "IRISAPP"
+    Do EnableDeepSee^%SYS.cspServer("/csp/irisapp/")
+    zpm "load /opt/irisapp/ -v -Dfolder=irisapp"
+    zpm "install csvgen"
+    zpm "install MDX2JSON"
+    Do ##class(community.csvgen).GenerateFromURL("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv",",","Data.Covid19")
+    Do ##class(community.csvgen).GenerateFromURL("https://raw.githubusercontent.com/stefangabos/world_countries/master/data/countries/en/countries.csv",",","Data.Countries")
+    
+    zn "%SYS"
+    Do ##class(Security.Users).UnExpireUserPasswords("*")
+    Do ##class(Security.Services).Get("%Service_CallIn",.prop)
+    set prop("Enabled")=1
+    set prop("AutheEnabled")=48
+    Do ##class(Security.Services).Modify("%Service_CallIn",.prop)
+
+    halt

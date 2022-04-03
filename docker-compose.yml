@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  react:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+        - 4000:3000
+  iris:
+    build: 
+      context: ./IRIS
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - 1972
+      - 32792:52773
+      - 53773
+      - 8888:8888
+      - 8080:8080
+    volumes:
+      - ./IRIS:/irisdev/app
+      - ./IRIS/src:/opt/irisapp/src
+    command: -a "sh /opt/irisapp/server_start.sh"

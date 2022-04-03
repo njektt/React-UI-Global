@@ -1,0 +1,1 @@
+cd ${SRC_PATH}/src/FlaskREST && ${PYTHONPATH} -m gunicorn --reload --bind "0.0.0.0:8080" app:app && exit 1
