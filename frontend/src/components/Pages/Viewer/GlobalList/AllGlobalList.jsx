@@ -1,5 +1,4 @@
 import * as React from "react";
-import axios from "axios";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -16,7 +15,7 @@ export default function UsageGlobalList(props) {
 				Global List
 			</Typography>
 			<Card>
-				<List sx={{ maxHeight: 620, overflow: "auto" }} component="nav">
+				<List sx={{ maxHeight: 670, overflow: "auto" }} component="nav">
 					{props.globalList &&
 						props.globalList.map((item) => (
 							<div key={item.name}>

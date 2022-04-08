@@ -19,8 +19,8 @@ RUN iris start IRIS \
 
 ENV PYTHONPATH=/usr/irissys/bin/irispython
 ENV SRC_PATH=/opt/irisapp
-ENV IRISUSERNAME "SuperUser"
-ENV IRISPASSWORD "SYS"
-ENV IRISNAMESPACE "IRISAPP"
+ENV IRISUSERNAME=SuperUser
+ENV IRISPASSWORD=SYS
+ENV IRISNAMESPACE=IRISAPP
 
 RUN pip3 install -r ${SRC_PATH}/src/requirements.txt

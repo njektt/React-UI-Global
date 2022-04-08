@@ -1,5 +1,7 @@
+from crypt import methods
+from unicodedata import name
 from urllib import response
-from flask import Flask, request, make_response, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import iris
@@ -8,13 +10,15 @@ import iris
 app = Flask(__name__)
 CORS(app)
 classUtils = 'dc.teccod.API.utils'
+classUtilsDocDB = 'dc.teccod.API.DocDB'
 
 @app.route('/api/getGlobalData')
 def getGlobalData():
-    globalName = request.args.get('name')
-    size = request.args.get('size')
-    namespace = request.args.get('namespace')
-    return jsonify(json.loads(iris.cls(classUtils).getGlobalData(globalName, size, namespace))['data'])
+    return jsonify(json.loads(iris.cls(classUtils).getGlobalData(
+        request.args.get('name'),
+        request.args.get('size'),
+        request.args.get('namespace')
+    ))['data'])
 
 
 @app.route('/api/setNamespace')
@@ -22,25 +26,86 @@ def setNamespace():
     return iris.cls(classUtils).setNamespace()
 
 
-@app.route('/api/generateGlobal',  methods=['GET', 'POST'])
+@app.route('/api/generateGlobal', methods=['GET', 'POST'])
 def generateGlobal():
-    namespace = request.get_json()['namespace']
-    rowcount = request.get_json()['rowcount']
-    globalname = request.get_json()['globalname']
-    iris.cls(classUtils).generateGlobal(globalname, rowcount, namespace)
+    iris.cls(classUtils).generateGlobal(
+        request.get_json()['namespace'],
+        request.get_json()['rowcount'],
+        request.get_json()['globalname']
+    )
     return {'status' : 200}
 
 
 @app.route('/api/getRowCountGlobal')
 def getRowCountGlobal():
-    globalName = request.args.get('name')
-    return {"count" : iris.cls(classUtils).getRowCount(globalName)}
+    return {"count" : iris.cls(classUtils).getRowCount(
+        request.args.get('name')
+    )}
 
 
 @app.route('/api/getAllGlobalList')
 def getAllGlobalList():
-    nameSpace = request.args.get('nameSpace')
-    return jsonify(json.loads(iris.cls(classUtils).getGlobalList(nameSpace))['data'])
+    return jsonify(json.loads(iris.cls(classUtils).getGlobalList(
+        request.args.get('nameSpace')
+    ))['data'])
+
+
+@app.route('/api/docdb/createItem', methods=['POST'])
+def createItem():
+    return iris.cls(classUtilsDocDB).createItem(
+        request.get_json()['namespace'],
+        request.get_json()['database'],
+        request.get_json()['collection'],
+        request.get_json()['id'],
+        request.get_json()['value']
+    )
+
+
+@app.route('/api/docdb/getStructure', methods=['POST'])
+def getStructure():
+    return jsonify(json.loads(iris.cls(classUtilsDocDB).getStructure(
+        request.get_json()['namespace']
+    )))
+
+
+@app.route('/api/docdb/getDocuments', methods=['POST'])
+def getDocuments():
+    return json.loads(iris.cls(classUtilsDocDB).getDocuments(
+        request.get_json()['database'],
+        request.get_json()['collection'],
+        request.get_json()['namespace']
+    ))
+
+
+@app.route('/api/docdb/dropDatabase', methods=['POST'])
+def dropDatabase():
+    iris.cls(classUtilsDocDB).dropDatabase(
+        request.get_json()['database'],
+        request.get_json()['namespace']
+    )
+    return {'status' : 200}
+
+
+@app.route('/api/docdb/dropCollection', methods=['POST'])
+def dropCollection():
+    iris.cls(classUtilsDocDB).dropCollection(
+        request.get_json()['database'],
+        request.get_json()['collection'], 
+        request.get_json()['namespace']
+    )
+    return {'status' : 200}
+
+
+@app.route('/api/docdb/dropDocument', methods=['POST'])
+def dropDocument():
+    iris.cls(classUtilsDocDB).dropDocument(
+        request.get_json()['database'],
+        request.get_json()['collection'],
+        request.get_json()['id'],
+        request.get_json()['namespace']
+    )
+    return {'status' : 200}
+
 
 if __name__ == "__main__":
     app.run_server(host="0.0.0.0", port=8080, debug=True)

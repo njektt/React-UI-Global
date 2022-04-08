@@ -56,7 +56,7 @@ export default function KeyValueTable() {
 	};
 
 	return (
-		<Grid container spacing={3}>
+		<Grid container spacing={3} padding={2.5}>
 			<Grid item md={2.5} xs={12}>
 				<Filters
 					selectedNamespace={selectedNamespace}
@@ -70,7 +70,7 @@ export default function KeyValueTable() {
 					Globals
 				</Typography>
 				<DataGrid
-					sx={{ height: 760, backgroundColor: "#fff" }}
+					sx={{ height: 800, backgroundColor: "#fff" }}
 					disableSelectionOnClick
 					rowHeight={32}
 					rowsPerPageOptions={[10, 25, 50, 200, 1000]}

@@ -7,6 +7,8 @@
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="dc.teccod.API.utils.CLS"/>
+      <Resource Name="dc.teccod.API.DocDB.CLS"/>
+      <Resource Name="globals.GBL"/>
     </Module>
   </Document>
 </Export>

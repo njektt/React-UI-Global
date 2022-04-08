@@ -28,7 +28,7 @@ export default function AddGlobalForm(props) {
 		setFormInput({ [name]: newValue });
 	};
 
-	const handleClose = () => {
+	const handleClickClose = () => {
 		setOpen(false);
 	};
 
@@ -44,7 +44,6 @@ export default function AddGlobalForm(props) {
 				namespace: props.selectedNamespace,
 			})
 			.then((response) => {
-				console.log(response);
 				setIsLoading(false);
 				setOpen(false);
 				setFormInput({ globalname: "", rowcount: "" });
@@ -61,7 +60,7 @@ export default function AddGlobalForm(props) {
 				</Button>
 				<Dialog
 					open={open}
-					onClose={handleClose}
+					onClose={handleClickClose}
 					aria-labelledby="alert-dialog-title"
 					aria-describedby="alert-dialog-description"
 				>
@@ -96,7 +95,7 @@ export default function AddGlobalForm(props) {
 						</List>
 					</DialogContent>
 					<DialogActions>
-						<Button variant="outlined" onClick={handleClose}>
+						<Button variant="outlined" onClick={handleClickClose}>
 							Cancel
 						</Button>
 						<LoadingButton
