@@ -42,3 +42,15 @@ Routing is used by Flask Framework to process incoming requests. When a request 
 ### Form for creating a global
 
 ![image](https://user-images.githubusercontent.com/47400570/161452651-52cc3fd0-b324-4257-9331-4747f3c37ec3.png)
+
+# Update
+
+Based on globals, the Data-model document store was implemented. This data model stores JSON-like documents
+
+http://localhost:4000/docdb
+
+![outputvideo-cutter-jscom-1-min](https://user-images.githubusercontent.com/47400570/162485792-fa08db62-d383-4f9a-a971-cd18e2a7d91f.gif)
+
+![image](https://user-images.githubusercontent.com/47400570/162485717-bbe7316e-5274-41ff-b7d8-e23a86a4bacc.png)
+
+![image](https://user-images.githubusercontent.com/47400570/162482862-e2a6dcb6-1d10-4a57-b3e5-1dd29a5a060c.png)
